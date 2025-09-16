@@ -1,5 +1,5 @@
 @startuml
-title FitLife Container Diagram
+title Контейнерная диаграмма Агротех C3 v4
 
 top to bottom direction
 
@@ -14,8 +14,7 @@ Container_Boundary(IOT, "Данные с датчиков") {
 Container(IOTserver, "IOT server", "IOT server", "Сервер, преобразующий данные")
 
 Container_Boundary(агент1, "Система управления фермой 1") {
-  Container(WebApp, "Web Application", "JavaScript, React", "Обеспечение пользовательского интерфейса")
-  Container(Backend, "Backend application", "Python, Django", "Выполнение основной логики приложения")
+  Container(WebApp, "Web Application", "Python, Django", "Пользовательский интерфейс и бизнес логика приложения")
   Container(Database, "Database", "PostgreSQL", "Хранилище данных")
 
 }
@@ -28,9 +27,8 @@ Rel(видеокамеры, IOTserver, "Отправляет")
 Rel(IOTserver, Database, "Сохраняет")
 Rel(датчикиКормушек, IOTserver, "Отправляет")
 Rel(ДатчикиФильтрацииВоды, IOTserver, "Отправляет")
-Rel(WebApp, Backend, "Взаимодействует")
 Rel(WebApp, видеокамеры, "Транслирует")
-Rel(Backend, Database, "Обменивается")
+Rel(WebApp, Database, "Обменивается")
 Rel(дежурныйсотрудник1, WebApp, "Взаимодействует")
 Rel(Backend, api, "Отправляет")
 

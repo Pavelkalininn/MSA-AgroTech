@@ -1,0 +1,30 @@
+@startuml
+title Компонентная диаграмма Агротех C2 v4
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(СистемаУправленияФермой, "Система управления фермой 1") {
+  Container(WebApp, "Web Application", "JavaScript, React", "Обеспечение пользовательского интерфейса")
+  Container(Backend, "Backend application", "Python, Django", "Выполнение основной логики приложения")
+  Container(Database, "Database", "PostgreSQL", "Хранилище данных")
+}
+
+Container(Backend, "Backend application", "ython, Django") {
+  Component(AuthController, "AuthController", "Обеспечение аутентификации и авторизации")
+  Component(UserController, "UserController", "Работа с профилями пользователей")
+  Component(ScheduleController, "ScheduleController", "Работа с расписанием")
+  Component(Metrics, "MetricController", "Отображение и внесение метрик")
+  Component(ServiceLayer, "Service Layer", "Бизнесс логика")
+  Component(RepositoryLayer, "Repository Layer", "Логика доступа к данным")
+}
+
+Rel(WebApp,Backend,"Запросы к ендпоинтам")
+Rel(AuthController,ServiceLayer,"Вызов бизнесс логики")
+Rel(UserController,ServiceLayer,"Вызов бизнесс логики")
+Rel(ScheduleController,ServiceLayer,"Вызов бизнесс логики")
+Rel(Metrics,ServiceLayer,"Вызов бизнесс логики")
+Rel(ServiceLayer,RepositoryLayer,"Чтение/запись данных")
+Rel(RepositoryLayer,Database,"Чтение/запись данных")
+@enduml
